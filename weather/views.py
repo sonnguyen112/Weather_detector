@@ -7,6 +7,8 @@ def index(request):
     data = {}
     if request.method == "POST":
         city_name = request.POST["search-city"]
+        if city_name == "":
+            return render(request, "index.html", data)
         json_data = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city_name.lower()}&appid=5bbc1acec51d4e6e1a1a397973e0a2a0").json()
         if json_data["cod"] != "404":
             data = {
